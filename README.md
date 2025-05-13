@@ -3,7 +3,7 @@
 [![License](https://img.shields.io/badge/license-Public%20Domain-blue.svg)](https://unlicense.org)
 [![Compatibility](https://img.shields.io/badge/ruby-3.0%2B-blue)](https://rubyreferences.github.io/rubychanges/3.0.html)
 [![Package](https://img.shields.io/gem/v/codify.rb)](https://rubygems.org/gems/codify.rb)
-[![Documentation](https://img.shields.io/badge/rubydoc-latest-blue)](https://rubydoc.info/gems/codify.rb)
+[![Documentation](https://img.shields.io/badge/rubydoc-latest-blue)](https://rubydoc.info/github/dryruby/codify.rb)
 
 **Codify.rb** is a [Ruby] library for code generation.
 
@@ -33,7 +33,7 @@ require 'codify'
 
 ## 📚 Reference
 
-https://rubydoc.info/gems/codify.rb
+https://rubydoc.info/github/dryruby/codify.rb
 
 ## 👨‍💻 Development
 
