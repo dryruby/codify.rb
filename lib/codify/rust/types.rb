@@ -3,16 +3,23 @@
 require_relative 'type'
 
 module Codify::Rust::Types
-  Named = ::Struct.new('Named', :t) do |type|
+  Named = ::Struct.new('Named', :t) do
     include Codify::Rust::Type
-    type.define_method(:types) { [] } # NB
-    type.define_method(:to_s) { t.to_s }
+
+    def self.to_s() 'Codify::Rust::Types::Named' end
+
+    def types() [] end # NB
+    def to_s() t.to_s end
   end
 
-  Val = ::Struct.new('Val', :t) do |type|
+  Val = ::Struct.new('Val', :t) do
     include Codify::Rust::Type
-    type.define_method(:types) { [] }
-    type.define_method(:to_s) { t.to_s }
+
+    def self.to_s() 'Codify::Rust::Types::Val' end
+
+    def types() [] end
+    def to_s() t.to_s end
+    def inspect() t.to_s end
   end
 
   Bool = Val.new(:bool).freeze
@@ -20,33 +27,50 @@ module Codify::Rust::Types
   F64 = Val.new(:f64).freeze
   String = Val.new(:String).freeze
 
-  Ref = ::Struct.new('Ref', :t) do |type|
+  Ref = ::Struct.new('Ref', :t) do
     include Codify::Rust::Type
-    type.define_method(:types) { [t] }
-    type.define_method(:to_s) { "&#{t}" }
+
+    def self.to_s() 'Codify::Rust::Types::Ref' end
+
+    def types() [t] end
+    def to_s() "&#{t}" end
   end
 
-  Unit = ::Struct.new('Unit', :m) do |type|
+  Tuple0 = ::Struct.new('Unit', :m) do
     include Codify::Rust::Type
-    type.define_method(:types) { [] }
-    type.define_method(:to_s) { m ? "(/*#{m}*/)" : "()" }
+
+    def self.to_s() 'Codify::Rust::Types::Unit' end
+
+    def types() [] end
+    def to_s() m ? "(/*#{m}*/)" : '()' end
   end
 
-  Vec = ::Struct.new('Vec', :t) do |type|
+  Unit = Tuple0.new.freeze
+
+  Vec = ::Struct.new('Vec', :t) do
     include Codify::Rust::Type
-    type.define_method(:types) { [t] }
-    type.define_method(:to_s) { "Vec<#{t || '_'}>" }
+
+    def self.to_s() 'Codify::Rust::Types::Vec' end
+
+    def types() [t] end
+    def to_s() "Vec<#{t || '_'}>" end
   end
 
-  Option = ::Struct.new('Option', :t) do |type|
+  Option = ::Struct.new('Option', :t) do
     include Codify::Rust::Type
-    type.define_method(:types) { [t] }
-    type.define_method(:to_s) { "Option<#{t}>" }
+
+    def self.to_s() 'Codify::Rust::Types::Option' end
+
+    def types() [t] end
+    def to_s() "Option<#{t}>" end
   end
 
-  Result = ::Struct.new('Result', :t, :e) do |type|
+  Result = ::Struct.new('Result', :t, :e) do
     include Codify::Rust::Type
-    type.define_method(:types) { [t, e] }
-    type.define_method(:to_s) { "Result<#{t}, #{e}>" }
+
+    def self.to_s() 'Codify::Rust::Types::Result' end
+
+    def types() [t, e] end
+    def to_s() "Result<#{t}, #{e}>" end
   end
 end # Codify::Rust::Types

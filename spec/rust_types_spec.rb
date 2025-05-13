@@ -47,8 +47,8 @@ end
 RSpec.describe Types::Unit do
   describe '#to_s' do
     it 'returns Rust code' do
-      expect(Types::Unit.new.to_s).to eq('()')
-      expect(Types::Unit.new('Comment').to_s).to eq('(/*Comment*/)')
+      expect(Types::Unit.to_s).to eq('()')
+      expect(Types::Tuple0.new('Comment').to_s).to eq('(/*Comment*/)')
     end
   end
 end
@@ -73,7 +73,7 @@ end
 RSpec.describe Types::Result do
   describe '#to_s' do
     it 'returns Rust code' do
-      expect(Types::Result.new(Types::Unit.new, Types::String).to_s).to eq('Result<(), String>')
+      expect(Types::Result.new(Types::Unit, Types::String).to_s).to eq('Result<(), String>')
     end
   end
 end

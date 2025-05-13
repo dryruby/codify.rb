@@ -4,6 +4,7 @@ require_relative 'types'
 
 class Codify::Rust::Definition
   include Codify::Rust
+  include Type
 
   attr_reader :name
   attr_reader :derives
