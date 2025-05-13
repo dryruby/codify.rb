@@ -4,17 +4,25 @@ module Codify; end
 module Codify::Rust; end
 
 module Codify::Rust::Type
+  def to_rust
+    self
+  end
+
+  ##
+  # @return [Boolean]
+  def primitive?()
+    true
+  end
+
   def definition?
     Codify::Rust::Definition === self
   end
 
   ##
-  # @return [Boolean]
-  def primitive?() true end
-
-  ##
   # @return [Array<Type>]
-  def types() [] end
+  def types()
+    []
+  end
 
   ##
   # @return [void]

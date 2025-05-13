@@ -9,8 +9,8 @@ class Codify::Rust::Newtype < Codify::Rust::Definition
   # @param [Array<Symbol, #to_sym>, #to_a] derives
   # @param [String, #to_s] comment
   # @param [Proc] block
-  def initialize(name, type, derives: %i(Clone Debug), comment: nil, &block)
-    super(name, derives:, comment:)
+  def initialize(name, type, **kwargs, &block)
+    super(name, **kwargs)
     raise ArgumentError, "#{type.inspect}" unless type.is_a?(Type)
     @type = type
     block.call(self) if block_given?

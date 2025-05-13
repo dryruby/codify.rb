@@ -10,4 +10,19 @@ RSpec.describe Newtype do
       Newtype.new(:MyNewtype, Types::Unit)
     end
   end
+
+  describe '#to_s' do
+    it 'returns the Rust typename' do
+      expect(Newtype.new(:MyNewtype, Types::Unit).to_s).to eq('MyNewtype')
+    end
+  end
+
+  describe '#to_rust_code' do
+    it 'generates Rust code' do
+      expect(Newtype.new(:MyNewtype, Types::Unit).to_rust_code).to eq(<<~EOF)
+        #[derive(Debug)]
+        pub struct MyNewtype(pub ());
+      EOF
+    end
+  end
 end

@@ -11,8 +11,8 @@ class Codify::Rust::Enum < Codify::Rust::Definition
   # @param [Array<Symbol, #to_sym>, #to_a] derives
   # @param [String, #to_s] comment
   # @param [Proc] block
-  def initialize(name, variants: nil, derives: nil, comment: nil, &block)
-    super(name, derives:, comment:)
+  def initialize(name, variants: nil, **kwargs, &block)
+    super(name, **kwargs)
     @variants = (variants || []).to_a.dup
     block.call(self) if block_given?
   end

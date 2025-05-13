@@ -11,8 +11,8 @@ class Codify::Rust::Struct < Codify::Rust::Definition
   # @param [Array<Symbol, #to_sym>, #to_a] derives
   # @param [String, #to_s] comment
   # @param [Proc] block
-  def initialize(name, fields: nil, derives: nil, comment: nil, &block)
-    super(name, derives:, comment:)
+  def initialize(name, fields: nil, **kwargs, &block)
+    super(name, **kwargs)
     @fields = (fields || []).to_a.dup
     block.call(self) if block_given?
   end
