@@ -63,6 +63,10 @@ module Codify::Rust::Types
 
     def types() [t] end
     def to_s() "Option<#{t}>" end
+
+    def flatten
+      t.is_a?(self.class) ? t : self
+    end
   end
 
   Result = ::Struct.new('Result', :t, :e) do
