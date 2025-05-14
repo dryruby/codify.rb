@@ -29,6 +29,7 @@ class Codify::Rust::Enum < Codify::Rust::Definition
     if self.variants.empty?
       out.puts "pub struct #{@name};"
     else
+      out.puts "#[cfg_attr(feature = \"serde\", serde(untagged))]" if @cfg_derives.include?(:serde)
       out.puts "pub enum #{@name} {"
       @variants.each_with_index do |variant, i|
         out.puts if i > 0
