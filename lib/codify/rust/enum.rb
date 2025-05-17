@@ -19,13 +19,21 @@ class Codify::Rust::Enum < Codify::Rust::Definition
 
   ##
   # @return [Array<Type>]
-  def types() @variants.map(&:type).compact.uniq.to_a end
+  def types
+    @variants.map(&:type).compact.uniq.to_a
+  end
+
+  ##
+  # @return [Boolean]
+  def has_default?()
+    @variants.any?(&:default)
+  end
 
   ##
   # @param [IO] out
   # @return [void]
   def write(out)
-    super(out)
+    super(out, extra_derives: self.has_default? ? %i(Default) : [])
     if self.variants.empty?
       out.puts "pub struct #{@name};"
     else

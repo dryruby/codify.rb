@@ -52,9 +52,9 @@ class Codify::Rust::Definition
   ##
   # @param [IO] out
   # @return [void]
-  def write(out)
+  def write(out, extra_derives: [])
     out.puts wrap_text(self.comment, 80-4).map { |s| s.prepend("/// ") }.join("\n") if self.comment?
-    out.puts "#[derive(#{@derives.sort.join(", ")})]" unless @derives.empty?
+    out.puts "#[derive(#{(@derives + (extra_derives || [])).sort.uniq.join(", ")})]" unless (@derives + extra_derives).empty?
     if @cfg_derives.include?(:serde)
       out.puts "#[cfg_attr(feature = \"serde\", derive(serde::Serialize, serde::Deserialize))]"
     end
