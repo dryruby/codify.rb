@@ -11,10 +11,10 @@ class Codify::Rust::Enum < Codify::Rust::Definition
   # @param [Array<Symbol, #to_sym>, #to_a] derives
   # @param [String, #to_s] comment
   # @param [Proc] block
-  def initialize(name, variants: nil, rename_all: nil, **kwargs, &block)
+  def initialize(name, variants: nil, serde: nil, **kwargs, &block)
     super(name, **kwargs)
     @variants = (variants || []).to_a.dup
-    @rename_all = rename_all&.to_s
+    @serde = serde || {} # :untagged, :rename_all
     block.call(self) if block_given?
   end
 
@@ -39,12 +39,11 @@ class Codify::Rust::Enum < Codify::Rust::Definition
     if self.variants.empty?
       out.puts "pub struct #{@name};"
     else
-      if @cfg_derives.include?(:serde)
-        if @rename_all
-          out.puts "#[cfg_attr(feature = \"serde\", serde(untagged, rename_all = \"lowercase\"))]"
-        else
-          out.puts "#[cfg_attr(feature = \"serde\", serde(untagged))]"
-        end
+      if @serde
+        serde = []
+        serde << 'untagged' if @serde[:untagged]
+        serde << 'rename_all = "' + @serde[:rename_all].to_s + '"' if @serde[:rename_all]
+        out.puts "#[cfg_attr(feature = \"serde\", serde(#{serde.join(', ')}))]" unless serde.empty?
       end
       out.puts "pub enum #{@name} {"
       @variants.each_with_index do |variant, i|
