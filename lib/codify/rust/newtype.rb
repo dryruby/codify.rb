@@ -17,6 +17,12 @@ class Codify::Rust::Newtype < Codify::Rust::Definition
   end
 
   ##
+  # @return [Boolean]
+  def defaultible?
+    @type.defaultible?
+  end
+
+  ##
   # @return [Array<Type>]
   def types() [@type] end
 

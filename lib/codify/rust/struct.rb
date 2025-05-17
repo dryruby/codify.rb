@@ -18,8 +18,16 @@ class Codify::Rust::Struct < Codify::Rust::Definition
   end
 
   ##
+  # @return [Boolean]
+  def defaultible?
+    @fields.all?(&:defaultible?)
+  end
+
+  ##
   # @return [Array<Type>]
-  def types() @fields.map(&:type).uniq.to_a end
+  def types
+    @fields.map(&:type).uniq.to_a
+  end
 
   ##
   # @param [IO] out

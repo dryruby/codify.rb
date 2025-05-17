@@ -8,6 +8,7 @@ module Codify::Rust::Types
 
     def self.to_s() 'Codify::Rust::Types::Named' end
 
+    def primitive?() false end
     def types() [] end # NB
     def to_s() t.to_s end
   end

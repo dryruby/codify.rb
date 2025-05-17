@@ -20,6 +20,12 @@ class Codify::Rust::EnumVariant
 
   ##
   # @return [Boolean]
+  def defaultible?
+    self.default
+  end
+
+  ##
+  # @return [Boolean]
   def comment?
     self.comment && !self.comment.empty?
   end

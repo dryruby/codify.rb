@@ -17,11 +17,21 @@ class Codify::Rust::StructField
 
   ##
   # @return [Boolean]
-  def comment?() self.comment && !self.comment.empty? end
+  def defaultible?
+    @type.defaultible?
+  end
+
+  ##
+  # @return [Boolean]
+  def comment?
+    self.comment && !self.comment.empty?
+  end
 
   ##
   # @return [Array<Type>]
-  def types() [@type] end
+  def types
+    [@type]
+  end
 
   ##
   # @param [IO] out

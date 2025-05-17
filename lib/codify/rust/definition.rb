@@ -35,7 +35,9 @@ class Codify::Rust::Definition
 
   ##
   # @return [Boolean]
-  def primitive?() false end
+  def primitive?
+    false
+  end
 
   ##
   # @return [String]

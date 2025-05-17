@@ -10,8 +10,14 @@ module Codify::Rust::Type
 
   ##
   # @return [Boolean]
-  def primitive?()
+  def primitive?
     true
+  end
+
+  ##
+  # @return [Boolean]
+  def defaultible?
+    self.primitive?
   end
 
   def definition?

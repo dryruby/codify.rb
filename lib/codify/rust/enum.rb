@@ -26,15 +26,16 @@ class Codify::Rust::Enum < Codify::Rust::Definition
 
   ##
   # @return [Boolean]
-  def has_default?()
-    @variants.any?(&:default)
+  def defaultible?
+    @variants.empty? || @variants.any?(&:defaultible?)
   end
+  alias_method :has_default?, :defaultible?
 
   ##
   # @param [IO] out
   # @return [void]
   def write(out)
-    super(out, extra_derives: self.has_default? ? %i(Default) : [])
+    super(out, extra_derives: self.defaultible? ? %i(Default) : [])
     if self.variants.empty?
       out.puts "pub struct #{@name};"
     else
